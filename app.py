@@ -9,6 +9,7 @@ from datetime import datetime
 @st.cache_data
 def load_data():
     df = pd.read_csv('kpop_tracks.csv')
+    df = df.drop_duplicates(subset=['Track Name', 'Artists'])
     return df
 
 # Calculate the difference in months from the current date
@@ -83,7 +84,7 @@ def main():
     if st.button("Get Recommendations"):
         recommendations = recommend_tracks(kpop_df, track_name, features, num_recommendations)
 
-        st.write("### Recommended Song")
+        st.write("### Recommendation Song")
         
         for i, (index, row) in enumerate(recommendations.iterrows()):
             # Embed Spotify preview using Track ID
